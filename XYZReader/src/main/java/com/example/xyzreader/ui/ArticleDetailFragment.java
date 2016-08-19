@@ -24,6 +24,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.NavUtils;
 import android.support.v4.app.ShareCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.graphics.Palette;
 import android.support.v7.view.menu.ActionMenuItem;
 import android.support.v7.widget.Toolbar;
@@ -216,7 +217,6 @@ public class ArticleDetailFragment extends Fragment implements
         // toolbar height, animate the color change like fade out effect
         AppBarLayout appBarLayout = (AppBarLayout) mRootView.findViewById(R.id.appbar);
         if (appBarLayout != null) {
-
             appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
                 Boolean toolbarIsTransparent = true;
 
@@ -228,27 +228,15 @@ public class ArticleDetailFragment extends Fragment implements
                     } else if (Math.abs(verticalOffset) >= appBarLayout.getTotalScrollRange()) {
                         mCurrentState = State.COLLAPSED;
                     }
-
+//Log.d("test", "appBarLayout.totalScrollRange=" + appBarLayout.getTotalScrollRange() + ", verticalOffset=" + verticalOffset);
 //Log.d("test", "mCollapsingToolbarLayout.getHeight()=" + mCollapsingToolbarLayout.getHeight() + ", verticalOffset=" + verticalOffset + ", finalActionBarHeight=" + finalActionBarHeight + ", mToolbar.getY=" + mToolbar.getY());
 //Log.d("test", "mCollapsingToolbarLayout.getBottom()=" + mCollapsingToolbarLayout.getBottom() + ", mToolbar.getBottom()=" + mToolbar.getBottom());
                     if ((mCollapsingToolbarLayout.getHeight() + verticalOffset <= finalActionBarHeight) && mCurrentState.equals(State.COLLAPSED)) {
                         if (toolbarIsTransparent) {
-//Log.d("test", "sold color");
                             mToolbar.setBackgroundColor(ContextCompat.getColor(mContext, R.color.theme_primary));
                             mToolbar.setTitle(mTitle);
 
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                mToolbar.setElevation(4);
-                            }
                             toolbarIsTransparent = false;
-//                        } else {
-//                            mToolbar.setTranslationY(mCollapsingToolbarLayout.getHeight());
-//Log.d("test", "toolbar height=" + mToolbar.getLayoutParams().height);
-//                            if (mCollapsingToolbarLayout.getHeight() + verticalOffset > initialToolbarHeight) {
-//                                int padding = mCollapsingToolbarLayout.getHeight() + verticalOffset - initialToolbarHeight;
-//                                mToolbar.setPadding(0, padding, 0, 0);
-//                                mToolbar.getLayoutParams().height = initialToolbarHeight + padding;
-////                            }
                         }
                     } else if (!toolbarIsTransparent) {
                         mCurrentState = State.EXPANDED;
@@ -275,13 +263,14 @@ public class ArticleDetailFragment extends Fragment implements
                     }
                     // Fix collapsingToolbar and toolbar reveal problem, sometimes it is found that the toolbar not able
                     // to cover the bottom of behind collapsingToolbar
-//                    if (!toolbarIsTransparent && mCollapsingToolbarLayout.getBottom() != mToolbar.getBottom()) {
                     if (!toolbarIsTransparent) {
-                        mToolbar.setTranslationY(mCollapsingToolbarLayout.getBottom() - mToolbar.getBottom());
+                        if ((mCollapsingToolbarLayout.getHeight() + verticalOffset == finalActionBarHeight) && mCurrentState.equals(State.COLLAPSED)) {
+                            Log.d(TAG, "Reset toolbar translationY");
+                            mToolbar.setTranslationY(0);
+                        } else {
+                            mToolbar.setTranslationY(mCollapsingToolbarLayout.getBottom() - mToolbar.getBottom());
+                        }
                     }
-//                    } else {
-//                        mToolbar.setTranslationY(0);
-//                    }
                 }
             });
         }
