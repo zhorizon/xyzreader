@@ -9,8 +9,7 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
-        android:layout_height="256dp"
-        android:outlineProvider="bounds"
+        android:layout_height="@dimen/detail_photo_height"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         android:fitsSystemWindows="true">
 
@@ -18,6 +17,7 @@
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:minHeight="20dp"
             app:titleEnabled="false"
             app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed"
             android:fitsSystemWindows="true">
@@ -47,7 +47,9 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                app:titleTextAppearance="@style/ToolbarTitle"
                 app:layout_collapseMode="pin"
+                app:layout_scrollFlags="scroll|enterAlways|snap"
                 app:theme="@style/ThemeOverlay.AppCompat.Dark"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
@@ -108,7 +110,7 @@
                 style="?android:attr/textAppearanceMedium"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="@dimen/detail_body_top_margin"
                 android:layout_marginLeft="@dimen/detail_inner_horiz_margin"
                 android:layout_marginRight="@dimen/detail_inner_horiz_margin"
                 android:paddingBottom="@dimen/detail_body_bottom_margin"
