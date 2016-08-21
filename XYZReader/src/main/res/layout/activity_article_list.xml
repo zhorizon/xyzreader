@@ -15,7 +15,7 @@
             android:layout_marginLeft="@dimen/list_toolbar_side_margin"
             android:layout_marginRight="@dimen/list_toolbar_side_margin"
             android:layout_width="match_parent"
-            android:layout_height="112dp"
+            android:layout_height="@dimen/list_toolbar_height"
             android:minHeight="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             android:elevation="4dp"
@@ -25,6 +25,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/list_toolbar_logo_bottom_margin"
                 android:src="@drawable/logo"
                 android:contentDescription="@string/app_name"
                 android:layout_gravity="bottom" />

@@ -233,10 +233,10 @@ public class ArticleDetailFragment extends Fragment implements
 //Log.d("test", "mCollapsingToolbarLayout.getBottom()=" + mCollapsingToolbarLayout.getBottom() + ", mToolbar.getBottom()=" + mToolbar.getBottom());
                     if ((mCollapsingToolbarLayout.getHeight() + verticalOffset <= finalActionBarHeight) && mCurrentState.equals(State.COLLAPSED)) {
                         if (toolbarIsTransparent) {
+                            toolbarIsTransparent = false;
+
                             mToolbar.setBackgroundColor(ContextCompat.getColor(mContext, R.color.theme_primary));
                             mToolbar.setTitle(mTitle);
-
-                            toolbarIsTransparent = false;
                         }
                     } else if (!toolbarIsTransparent) {
                         mCurrentState = State.EXPANDED;
@@ -271,6 +271,7 @@ public class ArticleDetailFragment extends Fragment implements
                             mToolbar.setTranslationY(mCollapsingToolbarLayout.getBottom() - mToolbar.getBottom());
                         }
                     }
+
                 }
             });
         }
